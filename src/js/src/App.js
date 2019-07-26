@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
 function App() {
@@ -14,18 +14,19 @@ function App() {
     getAllStudents()
   }, [])
 
-  return (
-    <Fragment>
-      <h1>React App with Spring Boot!</h1>
-      <ul>
-        {students.map(student => (
-          <li key={student.studentId}>
-            {student.firstName} - {student.lastName}
-          </li>
-        ))}
-      </ul>
-    </Fragment>
-  )
+  if (students.length > 0) {
+    return students.map(({ studentId, firstName, lastName, gender, email }) => (
+      <div key={studentId}>
+        <h2>{studentId}</h2>
+        <p>{firstName}</p>
+        <p>{lastName}</p>
+        <p>{gender}</p>
+        <p>{email}</p>
+      </div>
+    ))
+  }
+
+  return <h1>No Student Found!!</h1>
 }
 
 export default App
