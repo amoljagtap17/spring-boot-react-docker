@@ -18,7 +18,7 @@ public class Student {
         this.gender = gender;
     }
 
-    enum Gender {
+    public enum Gender {
         MALE,
         FEMALE
     }
