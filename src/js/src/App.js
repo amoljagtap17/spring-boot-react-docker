@@ -1,48 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Avatar, Spin, Icon } from 'antd'
+import { Table, Spin, Icon } from 'antd'
+import { columns } from './columns'
 import Container from './Container'
 import axios from './axios'
 
 const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />
-
-const columns = [
-  {
-    title: '',
-    key: 'avatar',
-    render: (text, student) => (
-      <Avatar size="large">
-        {`${student.firstName.charAt(0).toUpperCase()}${student.lastName
-          .charAt(0)
-          .toUpperCase()}`}
-      </Avatar>
-    )
-  },
-  {
-    title: 'Student Id',
-    dataIndex: 'studentId',
-    key: 'studentId'
-  },
-  {
-    title: 'First Name',
-    dataIndex: 'firstName',
-    key: 'firstName'
-  },
-  {
-    title: 'Last Name',
-    dataIndex: 'lastName',
-    key: 'lastName'
-  },
-  {
-    title: 'Email',
-    dataIndex: 'email',
-    key: 'email'
-  },
-  {
-    title: 'Gender',
-    dataIndex: 'gender',
-    key: 'gender'
-  }
-]
 
 function App() {
   const [students, setStudents] = useState([])
@@ -51,7 +13,7 @@ function App() {
   useEffect(() => {
     const getAllStudents = async () => {
       setIsLoading(true)
-      const res = await axios.get('students')
+      const res = await axios.get('/students')
 
       setStudents(res.data)
       setIsLoading(false)
