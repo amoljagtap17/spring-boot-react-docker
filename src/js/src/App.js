@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Table } from 'antd'
+import Container from './Container'
 import axios from './axios'
 
 const columns = [
@@ -44,7 +45,16 @@ function App() {
   }, [])
 
   if (students.length > 0) {
-    return <Table dataSource={students} columns={columns} rowKey="studentId" />
+    return (
+      <Container>
+        <Table
+          dataSource={students}
+          columns={columns}
+          pagination={false}
+          rowKey="studentId"
+        />
+      </Container>
+    )
   }
 
   return <h1>No Student Found!!</h1>
