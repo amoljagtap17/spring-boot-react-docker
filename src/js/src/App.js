@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Avatar } from 'antd'
+import { Table, Avatar, Spin, Icon } from 'antd'
 import Container from './Container'
 import axios from './axios'
+
+const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />
 
 const columns = [
   {
@@ -44,31 +46,42 @@ const columns = [
 
 function App() {
   const [students, setStudents] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     const getAllStudents = async () => {
+      setIsLoading(true)
       const res = await axios.get('students')
 
       setStudents(res.data)
+      setIsLoading(false)
     }
 
     getAllStudents()
   }, [])
 
-  if (students.length > 0) {
+  if (isLoading) {
     return (
       <Container>
-        <Table
-          dataSource={students}
-          columns={columns}
-          pagination={false}
-          rowKey="studentId"
-        />
+        <Spin indicator={antIcon} />
+      </Container>
+    )
+  } else {
+    return (
+      <Container>
+        {students.length > 0 && (
+          <Table
+            dataSource={students}
+            columns={columns}
+            pagination={false}
+            loading={isLoading}
+            rowKey="studentId"
+          />
+        )}
+        {students.length === 0 && <h1>No Student Found!!</h1>}
       </Container>
     )
   }
-
-  return <h1>No Student Found!!</h1>
 }
 
 export default App
