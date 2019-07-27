@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Spin, Icon } from 'antd'
+import { Table, Spin, Icon, Modal } from 'antd'
 import { columns } from './columns'
 import Container from './Container'
 import Footer from './Footer'
@@ -10,6 +10,9 @@ const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />
 function App() {
   const [students, setStudents] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+  const [isAddStudentModalVisible, setIsAddStudentModalVisible] = useState(
+    false
+  )
 
   useEffect(() => {
     const getAllStudents = async () => {
@@ -22,6 +25,10 @@ function App() {
 
     getAllStudents()
   }, [])
+
+  const openAddStudentModal = () => setIsAddStudentModalVisible(true)
+
+  const closeAddStudentModal = () => setIsAddStudentModalVisible(false)
 
   if (isLoading) {
     return (
@@ -42,7 +49,19 @@ function App() {
           />
         )}
         {students.length === 0 && <h1>No Student Found!!</h1>}
-        <Footer numberOfStudents={students.length} />
+        <Modal
+          title="Add New Student"
+          visible={isAddStudentModalVisible}
+          onOk={closeAddStudentModal}
+          onCancel={closeAddStudentModal}
+          width={1000}
+        >
+          <h1>Hello Modal with antd</h1>
+        </Modal>
+        <Footer
+          numberOfStudents={students.length}
+          handleAddStudentClick={openAddStudentModal}
+        />
       </Container>
     )
   }
