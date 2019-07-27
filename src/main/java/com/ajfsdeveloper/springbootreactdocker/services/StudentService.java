@@ -1,30 +1,23 @@
 package com.ajfsdeveloper.springbootreactdocker.services;
 
 import com.ajfsdeveloper.springbootreactdocker.models.Student;
+import com.ajfsdeveloper.springbootreactdocker.repository.StudentDataAccessService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class StudentService {
 
+    private final StudentDataAccessService studentDataAccessService;
+
+    @Autowired
+    public StudentService(StudentDataAccessService studentDataAccessService) {
+        this.studentDataAccessService = studentDataAccessService;
+    }
+
     public List<Student> getAllStudents() {
-        return List.of(
-                new Student(
-                        UUID.randomUUID(),
-                        "James",
-                        "Bond",
-                        "james.bond@test.com",
-                        Student.Gender.MALE
-                ),
-                new Student(
-                        UUID.randomUUID(),
-                        "Elisa",
-                        "Tamara",
-                        "elisa.tamara@test.com",
-                        Student.Gender.FEMALE
-                )
-        );
+        return studentDataAccessService.selectAllStudents();
     }
 }
