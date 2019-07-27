@@ -1,0 +1,9 @@
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(124, 71, 17, 0.9);
+  height: 5em;
+  padding: 1em;
+}
