@@ -10,7 +10,7 @@ const tagStyle = {
   ...inputBottomMargin
 }
 
-const AddStudentForm = () => {
+const AddStudentForm = props => {
   return (
     <Formik
       initialValues={{ firstName: '', lastName: '', email: '', gender: '' }}
@@ -45,7 +45,7 @@ const AddStudentForm = () => {
       }}
       onSubmit={async (student, { setSubmitting }) => {
         await axios.post('/students', JSON.stringify(student))
-        alert(JSON.stringify(student))
+        props.onSuccess()
         setSubmitting(false)
       }}
     >
@@ -59,7 +59,6 @@ const AddStudentForm = () => {
         isSubmitting,
         submitForm,
         isValid
-        /* and other goodies */
       }) => (
         <form onSubmit={handleSubmit}>
           <Input

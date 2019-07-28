@@ -16,16 +16,16 @@ function App() {
   )
 
   useEffect(() => {
-    const getAllStudents = async () => {
-      setIsLoading(true)
-      const res = await axios.get('/students')
-
-      setStudents(res.data)
-      setIsLoading(false)
-    }
-
     getAllStudents()
   }, [])
+
+  const getAllStudents = async () => {
+    setIsLoading(true)
+    const res = await axios.get('/students')
+
+    setStudents(res.data)
+    setIsLoading(false)
+  }
 
   const openAddStudentModal = () => setIsAddStudentModalVisible(true)
 
@@ -42,6 +42,7 @@ function App() {
       <Container>
         {students.length > 0 && (
           <Table
+            style={{ marginBottom: '100px' }}
             dataSource={students}
             columns={columns}
             pagination={false}
@@ -57,7 +58,12 @@ function App() {
           onCancel={closeAddStudentModal}
           width={1000}
         >
-          <AddStudentForm />
+          <AddStudentForm
+            onSuccess={() => {
+              closeAddStudentModal()
+              getAllStudents()
+            }}
+          />
         </Modal>
         <Footer
           numberOfStudents={students.length}
