@@ -24,7 +24,7 @@ public class StudentService {
     }
 
     public void addNewStudent(Student student) {
-        studentDataAccessService.insertStudent(null, student);
+        addNewStudent(null, student);
     }
 
     public void addNewStudent(UUID studentId, Student student) {
