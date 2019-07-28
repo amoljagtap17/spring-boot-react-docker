@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from '../axios'
 import { Formik } from 'formik'
 import { Input, Button, Tag } from 'antd'
 
@@ -42,11 +43,10 @@ const AddStudentForm = () => {
 
         return errors
       }}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2))
-          setSubmitting(false)
-        }, 400)
+      onSubmit={async (student, { setSubmitting }) => {
+        await axios.post('/students', JSON.stringify(student))
+        alert(JSON.stringify(student))
+        setSubmitting(false)
       }}
     >
       {({
