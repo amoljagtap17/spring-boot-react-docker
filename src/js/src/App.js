@@ -4,6 +4,7 @@ import { columns } from './columns'
 import Container from './Container'
 import Footer from './Footer'
 import AddStudentForm from './forms/AddStudentForm'
+import { errorNotification } from './Notification'
 import axios from './axios'
 
 const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />
@@ -21,10 +22,18 @@ function App() {
 
   const getAllStudents = async () => {
     setIsLoading(true)
-    const res = await axios.get('/students')
-
-    setStudents(res.data)
-    setIsLoading(false)
+    try {
+      const res = await axios.get('/students')
+      console.log('res', res)
+      setStudents(res.data)
+      setIsLoading(false)
+    } catch (error) {
+      if (error.data) {
+        console.log('err', error.data)
+        errorNotification(error.data.message, error.data.error)
+      }
+      setIsLoading(false)
+    }
   }
 
   const openAddStudentModal = () => setIsAddStudentModalVisible(true)
