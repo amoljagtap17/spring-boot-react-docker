@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { Table, Spin, Icon, Modal } from 'antd'
+import React, { useState, useEffect, Fragment } from 'react'
+import { Table, Spin, Icon, Modal, Empty } from 'antd'
 import { columns } from './columns'
 import Container from './Container'
 import Footer from './Footer'
@@ -40,6 +40,29 @@ function App() {
 
   const closeAddStudentModal = () => setIsAddStudentModalVisible(false)
 
+  const commonElements = () => (
+    <Fragment>
+      <Modal
+        title="Add New Student"
+        visible={isAddStudentModalVisible}
+        onOk={closeAddStudentModal}
+        onCancel={closeAddStudentModal}
+        width={1000}
+      >
+        <AddStudentForm
+          onSuccess={() => {
+            closeAddStudentModal()
+            getAllStudents()
+          }}
+        />
+      </Modal>
+      <Footer
+        numberOfStudents={students.length}
+        handleAddStudentClick={openAddStudentModal}
+      />
+    </Fragment>
+  )
+
   if (isLoading) {
     return (
       <Container>
@@ -59,25 +82,10 @@ function App() {
             rowKey="studentId"
           />
         )}
-        {students.length === 0 && <h1>No Student Found!!</h1>}
-        <Modal
-          title="Add New Student"
-          visible={isAddStudentModalVisible}
-          onOk={closeAddStudentModal}
-          onCancel={closeAddStudentModal}
-          width={1000}
-        >
-          <AddStudentForm
-            onSuccess={() => {
-              closeAddStudentModal()
-              getAllStudents()
-            }}
-          />
-        </Modal>
-        <Footer
-          numberOfStudents={students.length}
-          handleAddStudentClick={openAddStudentModal}
-        />
+        {students.length === 0 && (
+          <Empty description={<h1>No Student Found!!</h1>} />
+        )}
+        {commonElements()}
       </Container>
     )
   }
