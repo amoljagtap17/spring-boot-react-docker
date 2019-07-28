@@ -3,6 +3,7 @@ import { Table, Spin, Icon, Modal } from 'antd'
 import { columns } from './columns'
 import Container from './Container'
 import Footer from './Footer'
+import AddStudentForm from './forms/AddStudentForm'
 import axios from './axios'
 
 const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />
@@ -57,6 +58,7 @@ function App() {
           width={1000}
         >
           <h1>Hello Modal with antd</h1>
+          <AddStudentForm />
         </Modal>
         <Footer
           numberOfStudents={students.length}
