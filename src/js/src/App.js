@@ -57,7 +57,6 @@ function App() {
           onCancel={closeAddStudentModal}
           width={1000}
         >
-          <h1>Hello Modal with antd</h1>
           <AddStudentForm />
         </Modal>
         <Footer
