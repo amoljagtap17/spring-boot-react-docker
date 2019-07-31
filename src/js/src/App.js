@@ -82,9 +82,7 @@ function App() {
             rowKey="studentId"
           />
         )}
-        {students.length === 0 && (
-          <Empty description={<h1>No Student Found!!</h1>} />
-        )}
+        {students.length === 0 && <Empty description="No Student Found!!" />}
         {commonElements()}
       </Container>
     )
