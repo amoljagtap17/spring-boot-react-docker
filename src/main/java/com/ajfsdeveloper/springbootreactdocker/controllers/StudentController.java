@@ -1,5 +1,6 @@
 package com.ajfsdeveloper.springbootreactdocker.controllers;
 
+import com.ajfsdeveloper.springbootreactdocker.exception.ApiRequestException;
 import com.ajfsdeveloper.springbootreactdocker.models.Student;
 import com.ajfsdeveloper.springbootreactdocker.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class StudentController {
 
     @GetMapping
     public List<Student> getAllStudents() {
-        throw new IllegalStateException("Oops cannot get all students!");
+        throw new ApiRequestException("Oops cannot get all students with custom Exception!");
         // return studentService.getAllStudents();
     }
 
