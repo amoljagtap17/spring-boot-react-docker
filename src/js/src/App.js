@@ -54,6 +54,10 @@ function App() {
             closeAddStudentModal()
             getAllStudents()
           }}
+          onFailure={err => {
+            console.log('err', err)
+            errorNotification(err.data.message, err.data.httpStatus)
+          }}
         />
       </Modal>
       <Footer

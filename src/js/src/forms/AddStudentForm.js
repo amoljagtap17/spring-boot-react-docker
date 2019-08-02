@@ -44,9 +44,15 @@ const AddStudentForm = props => {
         return errors
       }}
       onSubmit={async (student, { setSubmitting }) => {
-        await axios.post('/students', JSON.stringify(student))
-        props.onSuccess()
-        setSubmitting(false)
+        try {
+          await axios.post('/students', JSON.stringify(student))
+          props.onSuccess()
+        } catch (err) {
+          props.onFailure(err)
+        } finally {
+          console.log('finally...')
+          setSubmitting(false)
+        }
       }}
     >
       {({
